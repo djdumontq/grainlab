@@ -22,7 +22,14 @@ const PATHS = {
   semicircle: "M 5,65 H 95 A 45,45 0 0,0 5,65 Z",
   crescent: "M 70,5 A 45,45 0 1,0 70,95 A 38,38 0 1,1 70,5 Z",
   ring: "M 50,5 A 45,45 0 1,1 49.9,5 Z M 50,25 A 25,25 0 1,0 49.9,25 Z",
-  arrow: "M 5,35 H 60 V 15 L 95,50 L 60,85 V 65 H 5 Z"
+  arrow: "M 5,35 H 60 V 15 L 95,50 L 60,85 V 65 H 5 Z",
+  bike: "M 25 28.125 a 3.125 3.125 0 0 1 3.125 -3.125 H 37.5 a 3.125 3.125 0 0 1 0 6.25 v 3.125 h 25.875 l 2.413 -7.237 A 3.125 3.125 0 0 1 68.75 25 h 6.25 a 3.125 3.125 0 0 1 0 6.25 h -4 l -1.944 5.844 5.044 8.062 a 18.75 18.75 0 1 1 -5.3 3.312 l -3.175 -5.075 -12.975 20.762 A 3.125 3.125 0 0 1 50 65.625 H 37.244 a 18.75 18.75 0 1 1 -11.344 -20.462 L 31.25 36.6 V 31.25 h -3.125 a 3.125 3.125 0 0 1 -3.125 -3.125 m 9.375 15.269 -3.175 5.087 c 3.125 2.775 5.312 6.588 6.044 10.894 h 7.119 z M 50 56.606 59.988 40.625 H 40.013 z M 30.856 59.375 a 12.5 12.5 0 0 0 -3.044 -5.481 l -3.425 5.481 z M 22.519 50.575 A 12.5 12.5 0 1 0 30.856 65.625 H 18.75 a 3.125 3.125 0 0 1 -2.65 -4.781 z m 49.669 3.312 a 12.5 12.5 0 1 0 5.3 -3.312 l 6.413 10.269 a 3.125 3.125 0 1 1 -5.3 3.312 z",
+  wrench: "M 0.637 13.894 A 18.775 18.775 0 0 0 23.625 36.856 l 39.631 39.075 A 18.769 18.769 0 0 0 81.25 100 a 18.75 18.75 0 1 0 -5.319 -36.737 L 36.856 23.631 A 18.775 18.775 0 0 0 13.894 0.625 l 13.381 13.387 L 25 25 l -10.981 2.275 z m 83.562 56.369 3.3 0.163 1.794 2.781 2.781 1.794 0.163 3.306 L 93.75 81.25 l -1.512 2.944 -0.163 3.306 -2.781 1.794 -1.794 2.781 -3.306 0.163 L 81.25 93.75 l -2.944 -1.512 -3.306 -0.163 -1.794 -2.781 -2.781 -1.794 -0.163 -3.306 L 68.75 81.25 l 1.512 -2.944 0.163 -3.306 2.781 -1.794 1.794 -2.781 3.306 -0.163 L 81.25 68.75 z",
+  gear: "M 58.781 6.562 c -2.581 -8.75 -14.981 -8.75 -17.562 0 l -0.625 2.125 a 9.15 9.15 0 0 1 -13.156 5.45 l -1.938 -1.062 c -8.019 -4.362 -16.788 4.406 -12.419 12.419 l 1.056 1.944 c 2.788 5.125 0.144 11.506 -5.45 13.156 l -2.125 0.625 c -8.75 2.581 -8.75 14.981 0 17.562 l -2.125 -0.625 a 9.15 9.15 0 0 1 -5.45 -13.156 l 1.062 -1.938 c 4.362 -8.019 -4.406 -16.788 -12.419 -12.419 l -1.944 1.056 a 9.15 9.15 0 0 1 -13.156 -5.45 z M 50 68.312 a 18.306 18.306 0 1 1 0 -36.625 18.306 18.306 0 0 1 0 36.612 z",
+  wheel: "M 50,5 A 45,45 0 1,0 50,95 A 45,45 0 1,0 50,5 Z M 50,12 A 38,38 0 1,1 50,88 A 38,38 0 1,1 50,12 Z M 50,42 A 8,8 0 1,0 50,58 A 8,8 0 1,0 50,42 Z M 49,12 H 51 V 88 H 49 Z M 12,49 V 51 H 88 V 49 Z M 24,22 L 76,74 L 78,72 L 26,20 Z M 22,74 L 74,22 L 76,24 L 24,76 Z",
+  tools: "M 6.25 0 0 6.25 l 13.75 19.256 a 6.25 6.25 0 0 0 5.094 2.619 h 0.438 a 6.25 6.25 0 0 1 4.425 1.831 l 16.719 16.719 -16.356 16.587 A 18.769 18.769 0 0 0 0 81.25 a 18.75 18.75 0 1 0 36.737 -5.319 l 16.587 -16.356 6.05 6.05 -1.906 5.713 a 6.25 6.25 0 0 0 1.512 6.394 l 20.438 20.438 a 6.231 6.231 0 0 0 8.838 0 l 9.912 -9.912 a 6.231 6.231 0 0 0 0 -8.838 l -20.438 -20.438 a 6.25 6.25 0 0 0 -6.394 -1.512 L 65.625 59.375 l -6 -6 16.75 -16.519 A 18.781 18.781 0 0 0 100 18.75 q 0 -2.531 -0.637 -4.856 l -13.375 13.381 L 75 25 l -2.275 -10.981 L 86.106 0.637 a 18.75 18.75 0 0 0 -22.969 23 L 46.637 40.375 29.956 23.706 a 6.25 6.25 0 0 1 -1.831 -4.419 v -0.444 a 6.25 6.25 0 0 0 -2.619 -5.087 z m 60.288 66.538 a 3.125 3.125 0 0 1 4.425 0 l 18.213 18.219 a 3.125 3.125 0 0 1 -4.419 4.419 l -18.219 -18.213 a 3.125 3.125 0 0 1 0 -4.425 M 18.75 68.75 l 2.944 1.512 3.306 0.163 1.794 2.781 2.781 1.794 0.163 3.306 L 31.25 81.25 l -1.512 2.944 -0.163 3.306 -2.781 1.794 -1.794 2.781 -3.306 0.163 L 18.75 93.75 l -2.944 -1.512 L 12.5 92.075 l -1.794 -2.781 L 7.925 87.5 l -0.163 -3.306 L 6.25 81.25 l 1.512 -2.944 0.163 -3.306 2.781 -1.794 1.794 -2.781 3.306 -0.163 z",
+  screwdriver: "M 0 6.219 6.219 0 l 19.15 13.688 a 6.25 6.25 0 0 1 2.606 5.056 v 0.438 c 0 1.65 0.656 3.231 1.819 4.4 l 35.481 35.475 5.681 -1.894 a 6.25 6.25 0 0 1 6.362 1.5 l 20.863 20.869 a 6.219 6.219 0 0 1 0 8.787 L 88.312 98.188 a 6.219 6.219 0 0 1 -8.787 0 l -20.856 -20.875 a 6.25 6.25 0 0 1 -1.5 -6.362 l 1.887 -5.681 -35.475 -35.481 a 6.25 6.25 0 0 0 -4.4 -1.819 H 18.75 a 6.25 6.25 0 0 1 -5.062 -2.606 z m 70.581 59.969 a 3.106 3.106 0 1 0 -4.394 4.394 l 18.65 18.65 a 3.106 3.106 0 0 0 4.394 -4.394 z",
+  nut: "M 28.625 6.25 a 6.25 6.25 0 0 0 -5.425 3.15 l -21.425 37.5 a 6.25 6.25 0 0 0 0 6.2 l 21.425 37.5 A 6.25 6.25 0 0 0 28.625 93.75 h 42.75 a 6.25 6.25 0 0 0 5.425 -3.15 l 21.431 37.5 a 6.25 6.25 0 0 0 0 -6.2 l -21.431 37.5 A 6.25 6.25 0 0 0 71.375 6.25 z m 31.362 60.6 a 18.75 18.75 0 1 1 18.75 -32.475 18.75 18.75 0 0 1 18.75 32.475"
 };
 
 // Organic base animation sets for foreground shapes (Speed and swing offsets)
@@ -35,6 +42,7 @@ const SHAPE_FLOAT_PRESETS = [
 ];
 
 // DOM Elements - Noise Settings
+const noiseEngineInput = document.getElementById('noiseEngine');
 const noiseTypeInput = document.getElementById('noiseType');
 const baseFrequencyInput = document.getElementById('baseFrequency');
 const baseFrequencyVal = document.getElementById('baseFrequencyVal');
@@ -43,6 +51,8 @@ const numOctavesVal = document.getElementById('numOctavesVal');
 const noiseOpacityInput = document.getElementById('noiseOpacity');
 const noiseOpacityVal = document.getElementById('noiseOpacityVal');
 const blendModeInput = document.getElementById('blendMode');
+const exportPngBtn = document.getElementById('exportPngBtn');
+const exportSvgBtn = document.getElementById('exportSvgBtn');
 
 // DOM Elements - Canvas Backdrop
 const previewCanvas = document.getElementById('previewCanvas');
@@ -159,29 +169,30 @@ function bindCollapsibleSections() {
 
 function bindInputs() {
   // Global Noise Overlay bindings
+  noiseEngineInput.addEventListener('change', () => {
+    updateNoiseEngine();
+    updatePreviewAndCode();
+  });
+
   noiseTypeInput.addEventListener('change', () => {
-    feTurbulence.setAttribute('type', noiseTypeInput.value);
-    if (svgFeTurbulence) {
-      svgFeTurbulence.setAttribute('type', noiseTypeInput.value);
-    }
+    updateNoiseEngine();
     updatePreviewAndCode();
   });
   
-  baseFrequencyInput.addEventListener('input', updateNoiseFrequency);
+  baseFrequencyInput.addEventListener('input', () => {
+    updateNoiseEngine();
+  });
   baseFrequencyInput.addEventListener('change', updatePreviewAndCode);
 
   numOctavesInput.addEventListener('input', () => {
-    numOctavesVal.innerText = numOctavesInput.value;
-    feTurbulence.setAttribute('numOctaves', numOctavesInput.value);
-    if (svgFeTurbulence) {
-      svgFeTurbulence.setAttribute('numOctaves', numOctavesInput.value);
-    }
+    updateNoiseEngine();
   });
   numOctavesInput.addEventListener('change', updatePreviewAndCode);
 
   noiseOpacityInput.addEventListener('input', () => {
     noiseOpacityVal.innerText = Math.round(noiseOpacityInput.value * 100) + '%';
     document.documentElement.style.setProperty('--noise-opacity', noiseOpacityInput.value);
+    updateNoiseEngine();
   });
   noiseOpacityInput.addEventListener('change', updatePreviewAndCode);
 
@@ -495,17 +506,98 @@ function bindInputs() {
   // Layout randomize
   randomizeBtn.addEventListener('click', generateRandomLayout);
   copyCodeBtn.addEventListener('click', copyCodeToClipboard);
+  
+  // Export image handlers
+  exportPngBtn.addEventListener('click', exportPng);
+  exportSvgBtn.addEventListener('click', exportSvg);
 }
 
-function updateNoiseFrequency() {
+let cachedNoiseDataURI = null;
+let lastNoiseParams = '';
+
+function getNoiseDataURI() {
+  const opacity = parseFloat(noiseOpacityInput.value);
+  const baseFreq = parseFloat(baseFrequencyInput.value);
+  const type = noiseTypeInput.value;
+  const octaves = numOctavesInput.value;
+  const paramKey = `${opacity}-${baseFreq}-${type}-${octaves}`;
+  
+  if (cachedNoiseDataURI && lastNoiseParams === paramKey) {
+    return cachedNoiseDataURI;
+  }
+  
+  const canvas = document.createElement('canvas');
+  canvas.width = 128;
+  canvas.height = 128;
+  const ctx = canvas.getContext('2d');
+  const imgData = ctx.createImageData(canvas.width, canvas.height);
+  const data = imgData.data;
+  
+  for (let i = 0; i < data.length; i += 4) {
+    const val = Math.floor(Math.random() * 255);
+    data[i] = val;
+    data[i+1] = val;
+    data[i+2] = val;
+    data[i+3] = 255;
+  }
+  
+  ctx.putImageData(imgData, 0, 0);
+  cachedNoiseDataURI = canvas.toDataURL('image/png');
+  lastNoiseParams = paramKey;
+  return cachedNoiseDataURI;
+}
+
+function updateNoiseEngine() {
+  const engine = noiseEngineInput.value;
   const baseFreqVal = parseFloat(baseFrequencyInput.value);
   baseFrequencyVal.innerText = baseFreqVal.toFixed(2);
-  feTurbulence.setAttribute('baseFrequency', baseFreqVal);
   
-  if (svgFeTurbulence) {
-    const canvasWidth = previewCanvas.clientWidth || 600;
-    const svgFreqVal = baseFreqVal * (canvasWidth / 1000);
-    svgFeTurbulence.setAttribute('baseFrequency', svgFreqVal);
+  numOctavesVal.innerText = numOctavesInput.value;
+  noiseOpacityVal.innerText = Math.round(noiseOpacityInput.value * 100) + '%';
+
+  if (engine === 'static-png') {
+    const dataUri = getNoiseDataURI();
+    const scale = 0.75 / baseFreqVal;
+    const bgSize = 128 * scale;
+    
+    document.documentElement.style.setProperty('--noise-bg-image', `url(${dataUri})`);
+    document.documentElement.style.setProperty('--noise-bg-size', `${bgSize}px ${bgSize}px`);
+    document.documentElement.style.setProperty('--noise-bg-color', 'transparent');
+    document.documentElement.style.setProperty('--noise-filter', 'none');
+    
+    const pattern = document.getElementById('svg-noise-pattern');
+    const patternImg = document.getElementById('svg-noise-pattern-img');
+    const maskRect = document.getElementById('grain-mask-rect');
+    
+    if (pattern && patternImg && maskRect) {
+      patternImg.setAttribute('href', dataUri);
+      pattern.setAttribute('width', bgSize);
+      pattern.setAttribute('height', bgSize);
+      maskRect.setAttribute('fill', 'url(#svg-noise-pattern)');
+      maskRect.setAttribute('filter', 'none');
+    }
+  } else {
+    document.documentElement.style.setProperty('--noise-bg-image', 'none');
+    document.documentElement.style.setProperty('--noise-bg-color', 'white');
+    document.documentElement.style.setProperty('--noise-filter', 'url(#noise-filter)');
+    
+    feTurbulence.setAttribute('type', noiseTypeInput.value);
+    feTurbulence.setAttribute('baseFrequency', baseFreqVal);
+    feTurbulence.setAttribute('numOctaves', numOctavesInput.value);
+    
+    if (svgFeTurbulence) {
+      const canvasWidth = previewCanvas.clientWidth || 600;
+      const svgFreqVal = baseFreqVal * (canvasWidth / 1000);
+      svgFeTurbulence.setAttribute('type', noiseTypeInput.value);
+      svgFeTurbulence.setAttribute('baseFrequency', svgFreqVal);
+      svgFeTurbulence.setAttribute('numOctaves', numOctavesInput.value);
+    }
+    
+    const maskRect = document.getElementById('grain-mask-rect');
+    if (maskRect) {
+      maskRect.setAttribute('fill', 'white');
+      maskRect.setAttribute('filter', 'url(#svg-noise-filter)');
+    }
   }
 }
 
@@ -807,6 +899,13 @@ function renderFgShapesControls() {
             <option value="star" ${shape.type === 'star' ? 'selected' : ''}>Star</option>
             <option value="heart" ${shape.type === 'heart' ? 'selected' : ''}>Heart</option>
             <option value="arrow" ${shape.type === 'arrow' ? 'selected' : ''}>Arrow</option>
+            <option value="bike" ${shape.type === 'bike' ? 'selected' : ''}>Bicycle</option>
+            <option value="wrench" ${shape.type === 'wrench' ? 'selected' : ''}>Wrench Tool</option>
+            <option value="gear" ${shape.type === 'gear' ? 'selected' : ''}>Gear Sprocket</option>
+            <option value="wheel" ${shape.type === 'wheel' ? 'selected' : ''}>Bicycle Wheel</option>
+            <option value="tools" ${shape.type === 'tools' ? 'selected' : ''}>Crossed Tools</option>
+            <option value="screwdriver" ${shape.type === 'screwdriver' ? 'selected' : ''}>Screwdriver Tool</option>
+            <option value="nut" ${shape.type === 'nut' ? 'selected' : ''}>Hex Nut</option>
           </select>
         </div>
         <div class="control-group">
@@ -1151,6 +1250,7 @@ function bindTabs() {
 }
 
 function updatePreviewAndCode() {
+  updateNoiseEngine();
   generateCodeOutput();
 }
 
@@ -1162,6 +1262,7 @@ function generateCodeOutput() {
   const octaves = numOctavesInput.value;
   const opacity = noiseOpacityInput.value;
   const blendMode = blendModeInput.value;
+  const engine = noiseEngineInput.value;
 
   const bg1 = bgColor1Input.value;
   const bg2 = bgColor2Input.value;
@@ -1173,6 +1274,62 @@ function generateCodeOutput() {
 
   // Motion active settings
   const motionActive = globalMotion.active;
+
+  const dataUri = getNoiseDataURI();
+  const scale = 0.75 / parseFloat(baseFreq);
+  const bgSize = 128 * scale;
+
+  let exportDefsHTML = '';
+  let exportGlobalNoiseCSS = '';
+
+  if (engine === 'static-png') {
+    exportDefsHTML = `    <!-- Pattern for static PNG noise -->
+    <pattern id="svg-noise-pattern-${exportHash}" width="${bgSize}" height="${bgSize}" patternUnits="userSpaceOnUse">
+      <image href="${dataUri}" width="${bgSize}" height="${bgSize}" />
+    </pattern>
+
+    <!-- Transparency grain mask referencing the pattern -->
+    <mask id="grain-mask-${exportHash}" maskUnits="userSpaceOnUse" x="-5000" y="-5000" width="10000" height="10000">
+      <rect x="-5000" y="-5000" width="10000" height="10000" fill="url(#svg-noise-pattern-${exportHash})" />
+    </mask>`;
+
+    exportGlobalNoiseCSS = `  background-image: url(${dataUri});
+  background-size: ${bgSize}px ${bgSize}px;
+  background-repeat: repeat;
+  background-color: transparent;`;
+  } else {
+    exportDefsHTML = `    <!-- Filter for CSS overlay (pixel space coordinate systems) -->
+    <filter id="noise-grain-${exportHash}" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence 
+        type="${noiseType}" 
+        baseFrequency="${baseFreq}" 
+        numOctaves="${octaves}" 
+        stitchTiles="stitch" />
+      <feColorMatrix 
+        type="matrix" 
+        values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0" />
+    </filter>
+
+    <!-- Filter for SVG shapes (viewBox coordinate space) -->
+    <filter id="svg-noise-grain-${exportHash}" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence 
+        type="${noiseType}" 
+        baseFrequency="${svgFreqVal}" 
+        numOctaves="${octaves}" 
+        stitchTiles="stitch" />
+      <feColorMatrix 
+        type="matrix" 
+        values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0" />
+    </filter>
+
+    <!-- Transparency grain mask referencing the scaled filter -->
+    <mask id="grain-mask-${exportHash}" maskUnits="userSpaceOnUse" x="-5000" y="-5000" width="10000" height="10000">
+      <rect x="-5000" y="-5000" width="10000" height="10000" fill="white" filter="url(#svg-noise-grain-${exportHash})" />
+    </mask>`;
+
+    exportGlobalNoiseCSS = `  background: white;
+  filter: url(#noise-grain-${exportHash});`;
+  }
 
   if (activeTab === 'combined') {
     // Render HTML LinearGradients definitions for all active shapes
@@ -1258,7 +1415,6 @@ function generateCodeOutput() {
       : '';
 
     // Render HTML code elements for glows inline
-    // Render HTML code elements for glows inline (Downscaled by 10x with CPU layers isolated)
     const blobsHTML = bgBlobsData.filter(b => b.active).map((b, index) => {
       const animIndex = (index % 3) + 1;
       const animProperty = motionActive
@@ -1281,34 +1437,7 @@ function generateCodeOutput() {
     content = `<!-- 1. HTML: Add the SVG Filter & Mask definitions inside your body -->
 <svg style="position: absolute; width: 0; height: 0;" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- Filter for CSS overlay (pixel space coordinate systems) -->
-    <filter id="noise-grain-${exportHash}" x="-20%" y="-20%" width="140%" height="140%">
-      <feTurbulence 
-        type="${noiseType}" 
-        baseFrequency="${baseFreq}" 
-        numOctaves="${octaves}" 
-        stitchTiles="stitch" />
-      <feColorMatrix 
-        type="matrix" 
-        values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0" />
-    </filter>
-
-    <!-- Filter for SVG shapes (viewBox coordinate space) -->
-    <filter id="svg-noise-grain-${exportHash}" x="-20%" y="-20%" width="140%" height="140%">
-      <feTurbulence 
-        type="${noiseType}" 
-        baseFrequency="${svgFreqVal}" 
-        numOctaves="${octaves}" 
-        stitchTiles="stitch" />
-      <feColorMatrix 
-        type="matrix" 
-        values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0" />
-    </filter>
-
-    <!-- Transparency grain mask referencing the scaled filter -->
-    <mask id="grain-mask-${exportHash}" maskUnits="userSpaceOnUse" x="-5000" y="-5000" width="10000" height="10000">
-      <rect x="-5000" y="-5000" width="10000" height="10000" fill="white" filter="url(#svg-noise-grain-${exportHash})" />
-    </mask>
+${exportDefsHTML}
   </defs>
 </svg>
 
@@ -1322,34 +1451,7 @@ ${blobsHTML}
   <!-- Layer 2: Unified SVG viewport for foreground vectors (using overflow: visible to bleed margins) -->
   <svg class="fg-shapes-canvas-${exportHash}" viewBox="0 0 1000 1000" style="overflow: visible;">
     <defs>
-      <!-- Filter for CSS overlay (pixel space coordinate systems) -->
-      <filter id="noise-grain-${exportHash}" x="-20%" y="-20%" width="140%" height="140%">
-        <feTurbulence 
-          type="${noiseType}" 
-          baseFrequency="${baseFreq}" 
-          numOctaves="${octaves}" 
-          stitchTiles="stitch" />
-        <feColorMatrix 
-          type="matrix" 
-          values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0" />
-      </filter>
-
-      <!-- Filter for SVG shapes (viewBox coordinate space) -->
-      <filter id="svg-noise-grain-${exportHash}" x="-20%" y="-20%" width="140%" height="140%">
-        <feTurbulence 
-          type="${noiseType}" 
-          baseFrequency="${svgFreqVal}" 
-          numOctaves="${octaves}" 
-          stitchTiles="stitch" />
-        <feColorMatrix 
-          type="matrix" 
-          values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0" />
-      </filter>
-
-      <!-- Transparency grain mask referencing the scaled filter -->
-      <mask id="grain-mask-${exportHash}" maskUnits="userSpaceOnUse" x="-5000" y="-5000" width="10000" height="10000">
-        <rect x="-5000" y="-5000" width="10000" height="10000" fill="white" filter="url(#svg-noise-grain-${exportHash})" />
-      </mask>
+${exportDefsHTML}
 
 ${gradientsHTML}
     </defs>
@@ -1409,8 +1511,7 @@ ${pauseCSS}
 .global-noise-${exportHash} {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: white;
-  filter: url(#noise-grain-${exportHash});
+${exportGlobalNoiseCSS}
   mix-blend-mode: ${blendMode};
   opacity: ${opacity};
   pointer-events: none;
@@ -1421,15 +1522,20 @@ ${keyframesCSS}
   } 
   
   else if (activeTab === 'css-only') {
-    const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+    let finalDataUri = '';
+    if (engine === 'static-png') {
+      finalDataUri = `url("${dataUri}")`;
+    } else {
+      const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
   <filter id="n">
     <feTurbulence type="${noiseType}" baseFrequency="${baseFreq}" numOctaves="${octaves}" stitchTiles="stitch" />
     <feColorMatrix type="matrix" values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0" />
   </filter>
   <rect width="100%" height="100%" fill="white" filter="url(%23n)" />
 </svg>`;
-    const cleanSvg = svgString.replace(/\s+/g, ' ');
-    const dataUri = `url("data:image/svg+xml,${encodeURIComponent(cleanSvg)}")`;
+      const cleanSvg = svgString.replace(/\s+/g, ' ');
+      finalDataUri = `url("data:image/svg+xml,${encodeURIComponent(cleanSvg)}")`;
+    }
 
     content = `/* Fully self-contained CSS Background (No SVG block required in HTML) */
 .self-contained-grain-${exportHash} {
@@ -1445,7 +1551,8 @@ ${keyframesCSS}
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-image: ${dataUri};
+  background-image: ${finalDataUri};
+  ${engine === 'static-png' ? `background-size: ${bgSize}px ${bgSize}px;\n  background-repeat: repeat;` : ''}
   mix-blend-mode: ${blendMode};
   pointer-events: none;
   opacity: ${opacity};
@@ -1470,32 +1577,13 @@ ${keyframesCSS}
   else if (activeTab === 'html-only') {
     content = `<svg width="0" height="0" style="position: absolute;" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- High-Contrast Monochrome Noise Filter (CSS Overlay) -->
-    <filter id="noise-grain-${exportHash}" x="-20%" y="-20%" width="140%" height="140%">
-      <feTurbulence 
-        type="${noiseType}" 
-        baseFrequency="${baseFreq}" 
-        numOctaves="${octaves}" 
-        stitchTiles="stitch" />
-      <feColorMatrix type="matrix" values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0" />
-    </filter>
-
-    <!-- High-Contrast Monochrome Noise Filter (SVG Shapes viewBox) -->
-    <filter id="svg-noise-grain-${exportHash}" x="-20%" y="-20%" width="140%" height="140%">
-      <feTurbulence 
-        type="${noiseType}" 
-        baseFrequency="${svgFreqVal}" 
-        numOctaves="${octaves}" 
-        stitchTiles="stitch" />
-      <feColorMatrix type="matrix" values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0" />
-    </filter>
-
-    <!-- Transparency Grain Mask for Shapes -->
-    <mask id="grain-mask-${exportHash}" maskUnits="userSpaceOnUse" x="-5000" y="-5000" width="10000" height="10000">
-      <rect x="-5000" y="-5000" width="10000" height="10000" fill="white" filter="url(#svg-noise-grain-${exportHash})" />
-    </mask>
+${exportDefsHTML}
   </defs>
 </svg>`;
+  }
+  
+  else if (activeTab === 'svg-raw') {
+    content = getSelfContainedSvgContent();
   }
 
   codeOutput.textContent = content;
@@ -1513,6 +1601,256 @@ function copyCodeToClipboard() {
   }).catch(err => {
     console.error('Could not copy text: ', err);
   });
+}
+
+async function drawSvgToCanvas(ctx, width, height) {
+  return new Promise((resolve) => {
+    const svgElement = document.getElementById('fgShapesCanvas');
+    const svgClone = svgElement.cloneNode(true);
+    
+    // Inject custom styling to ensure vectors maintain core styling when serialized
+    const styleEl = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+    styleEl.textContent = `
+      .fg-shape-container {
+        will-change: transform;
+      }
+      .fg-shape-anim {
+        transform-origin: 50px 50px;
+      }
+    `;
+    svgClone.insertBefore(styleEl, svgClone.firstChild);
+    
+    const svgString = new XMLSerializer().serializeToString(svgClone);
+    const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+    const URL = window.URL || window.webkitURL || window;
+    const blobURL = URL.createObjectURL(svgBlob);
+    
+    const img = new Image();
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0, width, height);
+      URL.revokeObjectURL(blobURL);
+      resolve();
+    };
+    img.onerror = (err) => {
+      console.error("SVG image load failed during export:", err);
+      URL.revokeObjectURL(blobURL);
+      resolve();
+    };
+    img.src = blobURL;
+  });
+}
+
+function downloadURI(uri, name) {
+  const link = document.createElement("a");
+  link.download = name;
+  link.href = uri;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+async function exportPng() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1000;
+  canvas.height = 1000;
+  const ctx = canvas.getContext('2d');
+  
+  // 1. Draw Backdrop Gradient
+  const angle = parseFloat(bgAngleInput.value) || 135;
+  const angleRad = (angle - 90) * Math.PI / 180;
+  const x1 = 500 - Math.cos(angleRad) * 500;
+  const y1 = 500 - Math.sin(angleRad) * 500;
+  const x2 = 500 + Math.cos(angleRad) * 500;
+  const y2 = 500 + Math.sin(angleRad) * 500;
+  const grad = ctx.createLinearGradient(x1, y1, x2, y2);
+  grad.addColorStop(0, bgColor1Input.value);
+  grad.addColorStop(1, bgColor2Input.value);
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 1000, 1000);
+  
+  // 2. Draw Background Blobs
+  const canvasWidth = previewCanvas.clientWidth || 600;
+  const svgScale = 1000 / canvasWidth;
+  
+  bgBlobsData.forEach((blob, index) => {
+    if (!blob.active) return;
+    
+    const cx = (blob.x / 100) * 1000;
+    const cy = (blob.y / 100) * 1000;
+    const r = (blob.size / 2) * svgScale;
+    const blur = blob.blur * svgScale;
+    
+    ctx.save();
+    if (blur > 0) {
+      ctx.filter = `blur(${blur}px)`;
+    }
+    
+    const radialGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+    radialGrad.addColorStop(0, blob.color1);
+    radialGrad.addColorStop(1, blob.color2);
+    
+    ctx.fillStyle = radialGrad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  });
+  
+  // 3. Draw Foreground Shapes SVG
+  await drawSvgToCanvas(ctx, 1000, 1000);
+  
+  // 4. Draw Noise Overlay
+  ctx.save();
+  ctx.globalCompositeOperation = blendModeInput.value || 'overlay';
+  ctx.globalAlpha = parseFloat(noiseOpacityInput.value) || 0.35;
+  
+  const noiseImg = new Image();
+  await new Promise((resolve) => {
+    noiseImg.onload = resolve;
+    noiseImg.src = getNoiseDataURI();
+  });
+  
+  const baseFreqVal = parseFloat(baseFrequencyInput.value);
+  const scale = 0.75 / baseFreqVal;
+  const bgSize = 128 * scale;
+  
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width = bgSize;
+  tempCanvas.height = bgSize;
+  const tempCtx = tempCanvas.getContext('2d');
+  tempCtx.drawImage(noiseImg, 0, 0, bgSize, bgSize);
+  
+  const pattern = ctx.createPattern(tempCanvas, 'repeat');
+  ctx.fillStyle = pattern;
+  ctx.fillRect(0, 0, 1000, 1000);
+  ctx.restore();
+  
+  // 5. Trigger download
+  const dataUrl = canvas.toDataURL('image/png');
+  downloadURI(dataUrl, `grainlab-illustration-${exportHash}.png`);
+}
+
+function getSelfContainedSvgContent() {
+  const angle = parseFloat(bgAngleInput.value) || 135;
+  const angleRad = (angle - 90) * Math.PI / 180;
+  const x1 = (50 - Math.cos(angleRad) * 50).toFixed(1);
+  const y1 = (50 - Math.sin(angleRad) * 50).toFixed(1);
+  const x2 = (50 + Math.cos(angleRad) * 50).toFixed(1);
+  const y2 = (50 + Math.sin(angleRad) * 50).toFixed(1);
+  
+  const backdropGradHTML = `    <linearGradient id="svg-export-backdrop" x1="${x1}%" y1="${y1}%" x2="${x2}%" y2="${y2}%">
+      <stop offset="0%" stop-color="${bgColor1Input.value}" />
+      <stop offset="100%" stop-color="${bgColor2Input.value}" />
+    </linearGradient>`;
+
+  const canvasWidth = previewCanvas.clientWidth || 600;
+  const svgScale = 1000 / canvasWidth;
+
+  const blobGradientsHTML = bgBlobsData.filter(b => b.active).map(b => `    <radialGradient id="svg-export-blob-grad-${b.id}" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="${b.color1}" />
+      <stop offset="100%" stop-color="${b.color2}" />
+    </radialGradient>
+    <filter id="svg-export-blob-blur-${b.id}" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="${(b.blur * svgScale / 2).toFixed(1)}" />
+    </filter>`).join('\n');
+
+  const shapeGradientsHTML = fgShapesData.filter(s => s.active).map(s => `    <linearGradient id="svg-export-shape-grad-${s.id}" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="${s.color1}" />
+      <stop offset="100%" stop-color="${s.color2}" />
+    </linearGradient>`).join('\n');
+
+  const noiseType = noiseTypeInput.value;
+  const baseFreq = baseFrequencyInput.value;
+  const octaves = numOctavesInput.value;
+  const opacity = noiseOpacityInput.value;
+  const blendMode = blendModeInput.value;
+  const engine = noiseEngineInput.value;
+  const dataUri = getNoiseDataURI();
+  const scale = 0.75 / parseFloat(baseFreq);
+  const bgSize = 128 * scale;
+
+  let svgDefsHTML = '';
+  let noiseOverlayExportHTML = '';
+
+  if (engine === 'static-png') {
+    svgDefsHTML = `    <pattern id="svg-export-noise-pattern" width="${bgSize}" height="${bgSize}" patternUnits="userSpaceOnUse">
+      <image href="${dataUri}" width="${bgSize}" height="${bgSize}" />
+    </pattern>
+    <mask id="svg-export-grain-mask" maskUnits="userSpaceOnUse" x="-5000" y="-5000" width="10000" height="10000">
+      <rect x="-5000" y="-5000" width="10000" height="10000" fill="url(#svg-export-noise-pattern)" />
+    </mask>`;
+
+    noiseOverlayExportHTML = `  <rect width="1000" height="1000" fill="url(#svg-export-noise-pattern)" opacity="${opacity}" style="mix-blend-mode: ${blendMode}; pointer-events: none;" />`;
+  } else {
+    svgDefsHTML = `    <filter id="svg-export-noise-filter" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="${noiseType}" baseFrequency="${baseFreq * (canvasWidth / 1000)}" numOctaves="${octaves}" stitchTiles="stitch" />
+      <feColorMatrix type="matrix" values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0" />
+    </filter>
+    <mask id="svg-export-grain-mask" maskUnits="userSpaceOnUse" x="-5000" y="-5000" width="10000" height="10000">
+      <rect x="-5000" y="-5000" width="10000" height="10000" fill="white" filter="url(#svg-export-noise-filter)" />
+    </mask>`;
+
+    noiseOverlayExportHTML = `  <rect width="1000" height="1000" fill="white" filter="url(#svg-export-noise-filter)" opacity="${opacity}" style="mix-blend-mode: ${blendMode}; pointer-events: none;" />`;
+  }
+
+  const blobsExportHTML = bgBlobsData.filter(b => b.active).map(b => {
+    const cx = (b.x / 100) * 1000;
+    const cy = (b.y / 100) * 1000;
+    const r = (b.size / 2) * svgScale;
+    return `  <circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${r.toFixed(1)}" fill="url(#svg-export-blob-grad-${b.id})" filter="url(#svg-export-blob-blur-${b.id})" />`;
+  }).join('\n');
+
+  const shapesExportHTML = fgShapesData.filter(s => s.active).map((s) => {
+    const scale = s.size / 100;
+    const xSvg = (s.x / 100) * 1000;
+    const ySvg = (s.y / 100) * 1000;
+    const xOffset = xSvg - (50 * scale);
+    const yOffset = ySvg - (50 * scale);
+    const pathD = PATHS[s.type] || PATHS.circle;
+    const rotation = s.rotate || 0;
+    
+    return `  <g mask="url(#svg-export-grain-mask)">
+    <g transform="translate(${xOffset.toFixed(1)}, ${yOffset.toFixed(1)}) scale(${scale.toFixed(2)})" ${s.blur > 0 ? `style="filter: blur(${s.blur}px);"` : ''}>
+      <path d="${pathD}" fill="url(#svg-export-shape-grad-${s.id})" ${rotation > 0 ? `transform="rotate(${rotation}, 50, 50)"` : ''} />
+    </g>
+  </g>`;
+  }).join('\n');
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="100%" height="100%">
+  <defs>
+    <clipPath id="svg-export-clip">
+      <rect width="1000" height="1000" />
+    </clipPath>
+${backdropGradHTML}
+${blobGradientsHTML}
+${shapeGradientsHTML}
+${svgDefsHTML}
+  </defs>
+  
+  <!-- Main Frame Group clipped to 1000x1000 -->
+  <g clip-path="url(#svg-export-clip)">
+    <!-- Backdrop -->
+    <rect width="1000" height="1000" fill="url(#svg-export-backdrop)" />
+    
+    <!-- Background Blobs -->
+${blobsExportHTML}
+    
+    <!-- Foreground Shapes -->
+${shapesExportHTML}
+    
+    <!-- Noise Overlay -->
+${noiseOverlayExportHTML}
+  </g>
+</svg>`;
+}
+
+function exportSvg() {
+  const svgContent = getSelfContainedSvgContent();
+  const svgBlob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
+  const URL = window.URL || window.webkitURL || window;
+  const blobURL = URL.createObjectURL(svgBlob);
+  downloadURI(blobURL, `grainlab-illustration-${exportHash}.svg`);
+  setTimeout(() => URL.revokeObjectURL(blobURL), 500);
 }
 
 function generateHash() {

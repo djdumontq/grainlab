@@ -111,6 +111,14 @@
           </div>
 
           <div class="control-group">
+            <label for="noiseEngine">Noise Engine</label>
+            <select id="noiseEngine" class="custom-select">
+              <option value="svg-filter" selected>SVG Filter (Dynamic & Scalable)</option>
+              <option value="static-png">Static PNG Pattern (High Performance)</option>
+            </select>
+          </div>
+
+          <div class="control-group">
             <label for="noiseType">Noise Type</label>
             <select id="noiseType" class="custom-select">
               <option value="fractalNoise" selected>Fractal Noise (Cloudy)</option>
@@ -246,6 +254,14 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
               Randomize Layout
             </button>
+            <button class="action-btn primary-btn" id="exportPngBtn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export PNG
+            </button>
+            <button class="action-btn" id="exportSvgBtn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 21 12 16 7 21"/><line x1="12" y1="16" x2="12" y2="3"/></svg>
+              Export SVG
+            </button>
           </div>
         </div>
 
@@ -279,9 +295,14 @@
                     in="noise" />
                 </filter>
 
+                <!-- Pattern for static PNG noise -->
+                <pattern id="svg-noise-pattern" width="128" height="128" patternUnits="userSpaceOnUse">
+                  <image id="svg-noise-pattern-img" href="" width="128" height="128" />
+                </pattern>
+
                 <!-- Transparency mask referencing the scaled svg-noise-filter -->
                 <mask id="grain-mask" maskUnits="userSpaceOnUse" x="-50%" y="-50%" width="200%" height="200%">
-                  <rect x="-50%" y="-50%" width="200%" height="200%" fill="white" filter="url(#svg-noise-filter)" />
+                  <rect id="grain-mask-rect" x="-50%" y="-50%" width="200%" height="200%" fill="white" filter="url(#svg-noise-filter)" />
                 </mask>
               </defs>
 
@@ -307,6 +328,7 @@
           <button class="code-tab-btn active" data-tab="combined">CSS & SVG (Recommended)</button>
           <button class="code-tab-btn" data-tab="css-only">CSS Data URI (Self-contained)</button>
           <button class="code-tab-btn" data-tab="html-only">SVG Filter Code</button>
+          <button class="code-tab-btn" data-tab="svg-raw">Pure SVG Code</button>
         </div>
 
         <div class="code-box-container">
