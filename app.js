@@ -1175,10 +1175,7 @@ function generateCodeOutput() {
         stitchTiles="stitch" />
       <feColorMatrix 
         type="matrix" 
-        values="1 0 0 0 0
-                1 0 0 0 0
-                1 0 0 0 0
-                0 0 0 1 0" />
+        values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0" />
     </filter>
 
     <!-- Filter for SVG shapes (viewBox coordinate space) -->
@@ -1190,10 +1187,7 @@ function generateCodeOutput() {
         stitchTiles="stitch" />
       <feColorMatrix 
         type="matrix" 
-        values="1 0 0 0 0
-                1 0 0 0 0
-                1 0 0 0 0
-                0 0 0 1 0" />
+        values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0" />
     </filter>
 
     <!-- Transparency grain mask referencing the scaled filter -->
@@ -1222,10 +1216,7 @@ ${blobsHTML}
           stitchTiles="stitch" />
         <feColorMatrix 
           type="matrix" 
-          values="1 0 0 0 0
-                  1 0 0 0 0
-                  1 0 0 0 0
-                  0 0 0 1 0" />
+          values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0" />
       </filter>
 
       <!-- Filter for SVG shapes (viewBox coordinate space) -->
@@ -1237,10 +1228,7 @@ ${blobsHTML}
           stitchTiles="stitch" />
         <feColorMatrix 
           type="matrix" 
-          values="1 0 0 0 0
-                  1 0 0 0 0
-                  1 0 0 0 0
-                  0 0 0 1 0" />
+          values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0" />
       </filter>
 
       <!-- Transparency grain mask referencing the scaled filter -->
