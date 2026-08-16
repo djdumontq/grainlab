@@ -75,6 +75,8 @@ let globalMotion = {
 
 // Current active color theme name
 let activeTheme = 'phineo';
+let editingThemeId = null;
+let newThemePalette = [];
 
 // Auto-namespacing hash to prevent styling/id conflicts between blocks on a single page
 let exportHash = 'a1b2';
@@ -215,16 +217,30 @@ function bindInputs() {
   // Create Custom Theme form display toggler
   const showAddThemeBtn = document.getElementById('showAddThemeBtn');
   const addThemeForm = document.getElementById('addThemeForm');
+  const saveThemeBtn = document.getElementById('saveThemeBtn');
+  const newThemeNameInput = document.getElementById('newThemeName');
+  const newThemeBg1 = document.getElementById('newThemeBg1');
+  const newThemeBg2 = document.getElementById('newThemeBg2');
+  const newThemePalettePreview = document.getElementById('newThemePalettePreview');
+  const newPaletteColorPicker = document.getElementById('newPaletteColorPicker');
+
   showAddThemeBtn.addEventListener('click', () => {
     const isHidden = addThemeForm.style.display === 'none' || addThemeForm.style.display === '';
-    addThemeForm.style.display = isHidden ? 'flex' : 'none';
+    if (isHidden) {
+      editingThemeId = null;
+      document.getElementById('themeFormTitle').innerText = 'Create Custom Theme';
+      saveThemeBtn.innerText = 'Save Theme';
+      newThemeNameInput.value = '';
+      newThemePalette = [];
+      newThemePalettePreview.innerHTML = '';
+      addThemeForm.style.display = 'flex';
+    } else {
+      addThemeForm.style.display = 'none';
+    }
   });
 
   // Palette color collector list
-  let newThemePalette = [];
   const addPaletteColorBtn = document.getElementById('addPaletteColorBtn');
-  const newPaletteColorPicker = document.getElementById('newPaletteColorPicker');
-  const newThemePalettePreview = document.getElementById('newThemePalettePreview');
 
   addPaletteColorBtn.addEventListener('click', () => {
     const color = newPaletteColorPicker.value;
@@ -243,16 +259,11 @@ function bindInputs() {
     newThemePalettePreview.appendChild(tag);
   });
 
-  // Save new theme
-  const saveThemeBtn = document.getElementById('saveThemeBtn');
-  const newThemeNameInput = document.getElementById('newThemeName');
-  const newThemeBg1 = document.getElementById('newThemeBg1');
-  const newThemeBg2 = document.getElementById('newThemeBg2');
-
+  // Save/Update theme
   saveThemeBtn.addEventListener('click', () => {
     const name = newThemeNameInput.value.trim();
     if (!name) {
-      alert("Please enter a name for the custom theme.");
+      alert("Please enter a name for the theme.");
       return;
     }
     if (newThemePalette.length < 2) {
@@ -260,12 +271,20 @@ function bindInputs() {
       return;
     }
 
-    const themeId = 'custom-' + name.toLowerCase().replace(/[^a-z0-9]/g, '-');
-    THEMES[themeId] = {
-      name: name,
-      backdrop: [newThemeBg1.value, newThemeBg2.value],
-      palette: [...newThemePalette]
-    };
+    let themeId;
+    if (editingThemeId) {
+      themeId = editingThemeId;
+      THEMES[themeId].name = name;
+      THEMES[themeId].backdrop = [newThemeBg1.value, newThemeBg2.value];
+      THEMES[themeId].palette = [...newThemePalette];
+    } else {
+      themeId = 'custom-' + name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+      THEMES[themeId] = {
+        name: name,
+        backdrop: [newThemeBg1.value, newThemeBg2.value],
+        palette: [...newThemePalette]
+      };
+    }
 
     // Re-render grid and apply the new theme
     renderThemesGrid();
@@ -275,6 +294,9 @@ function bindInputs() {
     newThemeNameInput.value = '';
     newThemePalette = [];
     newThemePalettePreview.innerHTML = '';
+    document.getElementById('themeFormTitle').innerText = 'Create Custom Theme';
+    saveThemeBtn.innerText = 'Save Theme';
+    editingThemeId = null;
     addThemeForm.style.display = 'none';
   });
 
@@ -539,13 +561,66 @@ function renderThemesGrid() {
     const btn = document.createElement('button');
     btn.className = `preset-btn ${themeKey === activeTheme ? 'active' : ''}`;
     btn.dataset.theme = themeKey;
-    btn.innerText = theme.name;
+
+    // Theme text label
+    const nameLabel = document.createElement('span');
+    nameLabel.innerText = theme.name;
+    btn.appendChild(nameLabel);
+
+    // Edit theme button (pencil icon)
+    const editBtn = document.createElement('button');
+    editBtn.className = 'edit-theme-btn';
+    editBtn.title = `Edit ${theme.name}`;
+    editBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
+    editBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent loading theme on click
+      startEditingTheme(themeKey);
+    });
+    btn.appendChild(editBtn);
+
     btn.addEventListener('click', () => {
       document.querySelectorAll('#themesGrid .preset-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       loadTheme(themeKey);
     });
     grid.appendChild(btn);
+  });
+}
+
+function startEditingTheme(themeKey) {
+  const theme = THEMES[themeKey];
+  if (!theme) return;
+
+  editingThemeId = themeKey;
+
+  // Show / expand the form panel
+  const addThemeForm = document.getElementById('addThemeForm');
+  addThemeForm.style.display = 'flex';
+
+  // Update header and button text
+  document.getElementById('themeFormTitle').innerText = `Edit Theme: ${theme.name}`;
+  document.getElementById('saveThemeBtn').innerText = 'Update Theme';
+
+  // Pre-fill name and backdrop inputs
+  document.getElementById('newThemeName').value = theme.name;
+  document.getElementById('newThemeBg1').value = theme.backdrop[0];
+  document.getElementById('newThemeBg2').value = theme.backdrop[1];
+
+  // Pre-populate palette previews and state variable
+  newThemePalette = [...theme.palette];
+  const newThemePalettePreview = document.getElementById('newThemePalettePreview');
+  newThemePalettePreview.innerHTML = '';
+
+  newThemePalette.forEach(color => {
+    const tag = document.createElement('div');
+    tag.className = 'new-theme-color-tag';
+    tag.style.backgroundColor = color;
+    tag.title = `Click to remove ${color}`;
+    tag.addEventListener('click', () => {
+      newThemePalette = newThemePalette.filter(c => c !== color);
+      tag.remove();
+    });
+    newThemePalettePreview.appendChild(tag);
   });
 }
 

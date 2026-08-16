@@ -915,3 +915,33 @@ input:checked + .switch-slider:before {
 #newThemePalettePreview .new-theme-color-tag:hover {
   transform: scale(1.15);
 }
+
+/* Sidebar Theme Buttons formatting for edit buttons */
+.presets-grid .preset-btn {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding-right: 10px !important;
+  gap: 8px !important;
+}
+
+.edit-theme-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, color 0.2s;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+}
+
+.presets-grid .preset-btn:hover .edit-theme-btn,
+.presets-grid .preset-btn.active .edit-theme-btn {
+  opacity: 1;
+}
+
+.edit-theme-btn:hover {
+  color: var(--accent) !important;
+}
