@@ -651,13 +651,22 @@ input:checked + .switch-slider:before {
   transition: background 0.3s ease;
 }
 
-/* Layer 1: Background Soft Glowing Blobs */
-.bg-blob {
+/* Layer 1: Background Soft Glowing Blobs (Downscaled for 10x rendering boost) */
+.bg-blob-wrapper {
   position: absolute;
-  border-radius: 50%;
   z-index: 2;
   transform-origin: center center;
-  will-change: transform, left, top;
+  will-change: transform;
+  backface-visibility: hidden;
+  pointer-events: none;
+}
+
+.bg-blob-element {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 /* Layer 2: Foreground Shapes (Grain Masked Vectors inside single SVG) */

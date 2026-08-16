@@ -537,10 +537,12 @@ function updateGlobalMotion() {
   
   // Update rendering state on background blobs
   bgBlobsData.forEach((blob, index) => {
-    const div = document.getElementById(`bgBlob-${blob.id}`);
-    if (!div) return;
+    const wrapper = document.getElementById(`bgBlob-${blob.id}`);
+    if (!wrapper) return;
+    const child = wrapper.querySelector('.bg-blob-element');
+    if (!child) return;
     const animIndex = (index % 3) + 1;
-    div.style.animation = globalMotion.active && globalAnimationActive
+    child.style.animation = globalMotion.active && globalAnimationActive
       ? `float-bg-${animIndex} calc(${24 + (index % 3) * 6}s / var(--global-motion-speed, 1)) ease-in-out infinite alternate`
       : 'none';
   });
@@ -710,34 +712,52 @@ function renderBgBlobsCanvas() {
   container.innerHTML = '';
 
   bgBlobsData.forEach((blob, index) => {
-    const div = document.createElement('div');
-    div.id = `bgBlob-${blob.id}`;
-    div.className = 'bg-blob';
+    // Create outer layout wrapper (GPU composited)
+    const wrapper = document.createElement('div');
+    wrapper.id = `bgBlob-${blob.id}`;
+    wrapper.className = 'bg-blob-wrapper';
     if (!blob.active) {
-      div.style.display = 'none';
+      wrapper.style.display = 'none';
     }
 
-    // Set dynamic floating animations
+    // Create inner animating/blur element
+    const child = document.createElement('div');
+    child.className = 'bg-blob-element';
+
+    // Set dynamic floating animations on the inner child (preserving CPU layer bounds)
     const animIndex = (index % 3) + 1;
-    div.style.animation = globalMotion.active && globalAnimationActive
+    child.style.animation = globalMotion.active && globalAnimationActive
       ? `float-bg-${animIndex} calc(${24 + (index % 3) * 6}s / var(--global-motion-speed, 1)) ease-in-out infinite alternate`
       : 'none';
 
-    updateBgBlobElement(blob, div);
-    container.appendChild(div);
+    wrapper.appendChild(child);
+    updateBgBlobElement(blob, wrapper);
+    container.appendChild(wrapper);
   });
 }
 
 function updateBgBlobElement(blob, el) {
-  const div = el || document.getElementById(`bgBlob-${blob.id}`);
-  if (!div) return;
+  const wrapper = el || document.getElementById(`bgBlob-${blob.id}`);
+  if (!wrapper) return;
 
-  div.style.width = `${blob.size}px`;
-  div.style.height = `${blob.size}px`;
-  div.style.left = `calc(${blob.x}% - (${blob.size}px / 2))`;
-  div.style.top = `calc(${blob.y}% - (${blob.size}px / 2))`;
-  div.style.filter = `blur(${blob.blur}px)`;
-  div.style.background = `radial-gradient(circle, ${blob.color1} 0%, ${blob.color2} 100%)`;
+  const child = wrapper.querySelector('.bg-blob-element');
+  if (!child) return;
+
+  // Downsampling factors (divide base size and blur by 10)
+  const factor = 10;
+  const baseSize = blob.size / factor;
+  const baseBlur = blob.blur / factor;
+
+  // Position and Scale the wrapper (GPU isolated compositor layer)
+  wrapper.style.width = `${baseSize}px`;
+  wrapper.style.height = `${baseSize}px`;
+  wrapper.style.left = `calc(${blob.x}% - (${baseSize}px / 2))`;
+  wrapper.style.top = `calc(${blob.y}% - (${baseSize}px / 2))`;
+  wrapper.style.transform = `scale(${factor})`;
+
+  // Apply the downscaled blur and radial color gradients to the inner child
+  child.style.filter = `blur(${baseBlur}px)`;
+  child.style.background = `radial-gradient(circle, ${blob.color1} 0%, ${blob.color2} 100%)`;
 }
 
 // Render dynamic vector cards in sidebar (Removed Enable Motion checkbox)
@@ -1238,14 +1258,24 @@ function generateCodeOutput() {
       : '';
 
     // Render HTML code elements for glows inline
+    // Render HTML code elements for glows inline (Downscaled by 10x with CPU layers isolated)
     const blobsHTML = bgBlobsData.filter(b => b.active).map((b, index) => {
       const animIndex = (index % 3) + 1;
       const animProperty = motionActive
         ? `animation: float-bg-${animIndex}-${exportHash} calc(${24 + (index % 3) * 6}s / var(--global-motion-speed, 1)) ease-in-out infinite alternate;`
         : '';
-      return `  <!-- Layer 1 Glow Blob ${index + 1} -->
-  <div class="bg-blob-${exportHash} bg-blob-${b.id}-${exportHash} ${motionActive ? 'animating' : ''}" 
-       style="width: ${b.size}px; height: ${b.size}px; left: calc(${b.x}% - (${b.size}px / 2)); top: calc(${b.y}% - (${b.size}px / 2)); filter: blur(${b.blur}px); background: radial-gradient(circle, ${b.color1} 0%, ${b.color2} 100%); ${animProperty}"></div>`;
+
+      const factor = 10;
+      const baseSize = b.size / factor;
+      const baseBlur = b.blur / factor;
+
+      return `  <!-- Layer 1 Glow Blob ${index + 1} Wrapper -->
+  <div class="bg-blob-wrapper-${exportHash} bg-blob-${b.id}-${exportHash}" 
+       style="width: ${baseSize}px; height: ${baseSize}px; left: calc(${b.x}% - (${baseSize}px / 2)); top: calc(${b.y}% - (${baseSize}px / 2)); transform: scale(${factor}); transform-origin: center; will-change: transform;">
+    <!-- Inner soft blur element handles floating motion -->
+    <div class="bg-blob-element-${exportHash} ${motionActive ? 'animating' : ''}" 
+         style="width: 100%; height: 100%; filter: blur(${baseBlur}px); background: radial-gradient(circle, ${b.color1} 0%, ${b.color2} 100%); ${animProperty}"></div>
+  </div>`;
     }).join('\n');
 
     content = `<!-- 1. HTML: Add the SVG Filter & Mask definitions inside your body -->
@@ -1349,12 +1379,22 @@ ${pauseCSS}
   z-index: 1;
 }
 
-/* Layer 1: Glowing Blobs structural base styling */
-.bg-blob-${exportHash} {
+/* Layer 1: Background Soft Glowing Blobs (Downscaled for 10x rendering boost) */
+.bg-blob-wrapper-${exportHash} {
   position: absolute;
-  border-radius: 50%;
   z-index: 2;
+  transform-origin: center center;
   will-change: transform;
+  backface-visibility: hidden;
+  pointer-events: none;
+}
+
+.bg-blob-element-${exportHash} {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .fg-shapes-canvas-${exportHash} {
@@ -1412,13 +1452,17 @@ ${keyframesCSS}
   z-index: 10;
 }
 
-/* Background ambient glow circle */
+/* Background ambient glow circle (Downscaled 10x with GPU acceleration) */
 .glow-orb-${exportHash} {
   position: absolute;
-  width: 350px;
-  height: 350px;
+  width: 35px;
+  height: 35px;
   background: radial-gradient(circle, ${bgBlobsData[0] ? bgBlobsData[0].color1 : '#ff5e62'} 0%, ${bgBlobsData[0] ? bgBlobsData[0].color2 : '#ff9966'} 100%);
-  filter: blur(80px);
+  filter: blur(8px);
+  transform: scale(10);
+  transform-origin: center center;
+  will-change: transform;
+  backface-visibility: hidden;
   z-index: 2;
 }`;
   } 
