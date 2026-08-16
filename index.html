@@ -30,16 +30,47 @@
 
       <div class="controls-wrapper">
         
-        <!-- Presets -->
+        <!-- Color Themes -->
         <section class="control-section">
-          <h2 class="section-title">Presets</h2>
-          <div class="presets-grid">
-            <button class="preset-btn active" data-preset="phineo">Phineo Teaser</button>
-            <button class="preset-btn" data-preset="westwind">Westwind Hamburg</button>
-            <button class="preset-btn" data-preset="cosmic">Cosmic Glow</button>
-            <button class="preset-btn" data-preset="cyberpunk">Cyberpunk Neon</button>
-            <button class="preset-btn" data-preset="minimal">Subtle Editorial</button>
-            <button class="preset-btn" data-preset="dark-mono">Monochrome Dark</button>
+          <h2 class="section-title">Color Themes</h2>
+          <div class="presets-grid" id="themesGrid">
+            <!-- Dynamically populated from THEMES in app.js -->
+          </div>
+
+          <!-- Add Custom Theme Builder -->
+          <div class="add-theme-box" style="margin-top: 15px;">
+            <button class="action-btn" id="showAddThemeBtn" style="width: 100%; justify-content: center; font-size: 13px; gap: 6px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Create Custom Theme
+            </button>
+            <div id="addThemeForm" style="display: none; flex-direction: column; gap: 12px; margin-top: 12px; padding: 12px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px;">
+              <div class="control-group">
+                <label>Theme Name</label>
+                <input type="text" id="newThemeName" placeholder="My Cool Theme" class="small-input" style="width: 100%; text-align: left;">
+              </div>
+              <div class="control-group">
+                <label>Backdrop Colors</label>
+                <div class="color-picker-row" style="margin-top: 4px;">
+                  <div class="color-picker-wrapper">
+                    <input type="color" id="newThemeBg1" value="#1a1a2e">
+                    <span>Start</span>
+                  </div>
+                  <div class="color-picker-wrapper">
+                    <input type="color" id="newThemeBg2" value="#16213e">
+                    <span>End</span>
+                  </div>
+                </div>
+              </div>
+              <div class="control-group">
+                <label>Palette Colors</label>
+                <div id="newThemePalettePreview" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;"></div>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <input type="color" id="newPaletteColorPicker" value="#00e5ff">
+                  <button class="action-btn" id="addPaletteColorBtn" style="padding: 6px 12px; font-size: 12px; white-space: nowrap;">Add Color</button>
+                </div>
+              </div>
+              <button class="add-btn" id="saveThemeBtn" style="width: 100%; justify-content: center; padding: 8px; font-size: 13px;">Save Theme</button>
+            </div>
           </div>
         </section>
 

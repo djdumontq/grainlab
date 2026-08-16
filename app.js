@@ -73,128 +73,43 @@ let globalMotion = {
   size: 1.0
 };
 
+// Current active color theme name
+let activeTheme = 'phineo';
+
 // Auto-namespacing hash to prevent styling/id conflicts between blocks on a single page
 let exportHash = 'a1b2';
 
-// Presets Definition (Dreamy Backdrops + Overlayed Crisp Vectors)
-const PRESETS = {
+// Color Themes Deducted from original presets (backdrop gradient + flat color palette list)
+let THEMES = {
   phineo: {
-    noiseType: "fractalNoise",
-    baseFrequency: 0.85,
-    numOctaves: 3,
-    noiseOpacity: 0.30,
-    blendMode: "overlay",
-    bgColor1: "#faf8f6",
-    bgColor2: "#ebdcd0",
-    bgAngle: 135,
-    bgBlobs: [
-      { active: true, color1: "#ff5e62", color2: "#ff9966", size: 450, blur: 110, x: 20, y: 35 },
-      { active: true, color1: "#1a8eff", color2: "#00e5ff", size: 500, blur: 120, x: 80, y: 65 },
-      { active: true, color1: "#e0d0b0", color2: "#cbb490", size: 350, blur: 90, x: 50, y: 20 }
-    ],
-    fgShapes: [
-      { active: true, type: "triangle", color1: "#e0533c", color2: "#f39c12", size: 180, blur: 0, rotate: 0, x: 30, y: 45 },
-      { active: true, type: "plus", color1: "#1b5e94", color2: "#4fa8c1", size: 160, blur: 0, rotate: 45, x: 70, y: 55 },
-      { active: true, type: "heart", color1: "#c0392b", color2: "#e74c3c", size: 130, blur: 0, rotate: 0, x: 48, y: 30 }
-    ]
+    name: "Phineo Teaser",
+    backdrop: ["#faf8f6", "#ebdcd0"],
+    palette: ["#ff5e62", "#ff9966", "#1a8eff", "#00e5ff", "#e0d0b0", "#cbb490", "#e0533c", "#f39c12", "#1b5e94", "#4fa8c1", "#c0392b", "#e74c3c", "#faf8f6", "#ebdcd0"]
   },
   westwind: {
-    noiseType: "fractalNoise",
-    baseFrequency: 0.70,
-    numOctaves: 3,
-    noiseOpacity: 0.32,
-    blendMode: "overlay",
-    bgColor1: "#1e3c72", // Hamburg Maritime Blue
-    bgColor2: "#0f2027", // Dark Deep Blue
-    bgAngle: 135,
-    bgBlobs: [
-      { active: true, color1: "#ffc759", color2: "#ff9f43", size: 500, blur: 110, x: 25, y: 35 },
-      { active: true, color1: "#b2ff9e", color2: "#78e08f", size: 450, blur: 120, x: 75, y: 60 },
-      { active: true, color1: "#fe654f", color2: "#dd3e2c", size: 350, blur: 90, x: 50, y: 20 }
-    ],
-    fgShapes: [
-      { active: true, type: "ring", color1: "#ffc759", color2: "#fe654f", size: 200, blur: 0, rotate: 15, x: 32, y: 45 },
-      { active: true, type: "arrow", color1: "#2a5ba3", color2: "#b2ff9e", size: 180, blur: 0, rotate: -10, x: 68, y: 55 },
-      { active: true, type: "heart", color1: "#fe654f", color2: "#ffc759", size: 130, blur: 0, rotate: 10, x: 48, y: 28 }
-    ]
+    name: "Westwind Hamburg",
+    backdrop: ["#1e3c72", "#0f2027"],
+    palette: ["#ffc759", "#ff9f43", "#b2ff9e", "#78e08f", "#fe654f", "#dd3e2c", "#2a5ba3", "#1e3c72", "#0f2027"]
   },
   cosmic: {
-    noiseType: "fractalNoise",
-    baseFrequency: 0.65,
-    numOctaves: 4,
-    noiseOpacity: 0.42,
-    blendMode: "soft-light",
-    bgColor1: "#0b001a",
-    bgColor2: "#20093b",
-    bgAngle: 225,
-    bgBlobs: [
-      { active: true, color1: "#ff007f", color2: "#7f00ff", size: 500, blur: 120, x: 20, y: 60 },
-      { active: true, color1: "#00f0ff", color2: "#003b80", size: 550, blur: 130, x: 75, y: 30 },
-      { active: true, color1: "#ffaa00", color2: "#ff0055", size: 300, blur: 80, x: 50, y: 40 }
-    ],
-    fgShapes: [
-      { active: true, type: "star", color1: "#ff007f", color2: "#ffffff", size: 160, blur: 0, rotate: 15, x: 35, y: 35 },
-      { active: true, type: "hexagon", color1: "#00f0ff", color2: "#ffffff", size: 180, blur: 0, rotate: 90, x: 65, y: 60 },
-      { active: true, type: "circle", color1: "#ffaa00", color2: "#ff5500", size: 120, blur: 0, rotate: 0, x: 50, y: 50 }
-    ]
+    name: "Cosmic Glow",
+    backdrop: ["#0b001a", "#20093b"],
+    palette: ["#ff007f", "#7f00ff", "#00f0ff", "#003b80", "#ffaa00", "#ff0055", "#ffffff", "#ff5500", "#0b001a", "#20093b"]
   },
   cyberpunk: {
-    noiseType: "turbulence",
-    baseFrequency: 0.95,
-    numOctaves: 3,
-    noiseOpacity: 0.50,
-    blendMode: "screen",
-    bgColor1: "#05050a",
-    bgColor2: "#150525",
-    bgAngle: 180,
-    bgBlobs: [
-      { active: true, color1: "#ff0055", color2: "#3a0055", size: 450, blur: 100, x: 30, y: 30 },
-      { active: true, color1: "#00ffcc", color2: "#051535", size: 480, blur: 110, x: 70, y: 70 },
-      { active: false, color1: "#ffff00", color2: "#ff5500", size: 350, blur: 90, x: 50, y: 50 }
-    ],
-    fgShapes: [
-      { active: true, type: "triangle", color1: "#ff0055", color2: "#ffffff", size: 170, blur: 0, rotate: -25, x: 25, y: 30 },
-      { active: true, type: "plus", color1: "#00ffcc", color2: "#ffffff", size: 160, blur: 0, rotate: 45, x: 75, y: 65 }
-    ]
+    name: "Cyberpunk Neon",
+    backdrop: ["#05050a", "#150525"],
+    palette: ["#ff0055", "#3a0055", "#00ffcc", "#051535", "#ffff00", "#ff5500", "#ffffff", "#05050a", "#150525"]
   },
   minimal: {
-    noiseType: "fractalNoise",
-    baseFrequency: 1.45,
-    numOctaves: 2,
-    noiseOpacity: 0.12,
-    blendMode: "overlay",
-    bgColor1: "#fdfbf7",
-    bgColor2: "#f3efe6",
-    bgAngle: 45,
-    bgBlobs: [
-      { active: true, color1: "#ffdbd4", color2: "#ffe3d1", size: 600, blur: 150, x: 20, y: 80 },
-      { active: true, color1: "#d8ebff", color2: "#e8f4ff", size: 550, blur: 140, x: 80, y: 20 },
-      { active: false, color1: "#fff0d0", color2: "#fffdf0", size: 300, blur: 90, x: 50, y: 50 }
-    ],
-    fgShapes: [
-      { active: true, type: "circle", color1: "#ffdbd4", color2: "#ffe3d1", size: 150, blur: 0, rotate: 0, x: 35, y: 50 },
-      { active: true, type: "triangle", color1: "#1b5e94", color2: "#f3efe6", size: 130, blur: 0, rotate: 180, x: 60, y: 40 }
-    ]
+    name: "Subtle Editorial",
+    backdrop: ["#fdfbf7", "#f3efe6"],
+    palette: ["#ffdbd4", "#ffe3d1", "#d8ebff", "#e8f4ff", "#fff0d0", "#fffdf0", "#1b5e94", "#fdfbf7", "#f3efe6"]
   },
   "dark-mono": {
-    noiseType: "fractalNoise",
-    baseFrequency: 0.55,
-    numOctaves: 4,
-    noiseOpacity: 0.65,
-    blendMode: "overlay",
-    bgColor1: "#121316",
-    bgColor2: "#1c1e24",
-    bgAngle: 90,
-    bgBlobs: [
-      { active: true, color1: "#2e323b", color2: "#191b20", size: 450, blur: 100, x: 30, y: 30 },
-      { active: true, color1: "#474e5d", color2: "#22252c", size: 480, blur: 110, x: 70, y: 70 },
-      { active: true, color1: "#16171a", color2: "#0d0e10", size: 350, blur: 90, x: 50, y: 50 }
-    ],
-    fgShapes: [
-      { active: true, type: "hexagon", color1: "#2e323b", color2: "#ffffff", size: 160, blur: 0, rotate: 30, x: 35, y: 40 },
-      { active: true, type: "star", color1: "#474e5d", color2: "#ffffff", size: 170, blur: 0, rotate: 45, x: 65, y: 60 },
-      { active: true, type: "plus", color1: "#16171a", color2: "#ffffff", size: 130, blur: 0, rotate: 0, x: 50, y: 30 }
-    ]
+    name: "Monochrome Dark",
+    backdrop: ["#121316", "#1c1e24"],
+    palette: ["#2e323b", "#191b20", "#474e5d", "#22252c", "#16171a", "#0d0e10", "#ffffff", "#121316", "#1c1e24"]
   }
 };
 
@@ -202,7 +117,6 @@ const PRESETS = {
 const randomizeBtn = document.getElementById('randomizeBtn');
 const codeOutput = document.getElementById('codeOutput');
 const copyCodeBtn = document.getElementById('copyCodeBtn');
-const presetBtns = document.querySelectorAll('.preset-btn');
 const codeTabBtns = document.querySelectorAll('.code-tab-btn');
 const addFgShapeBtn = document.getElementById('addFgShapeBtn');
 const addBgBlobBtn = document.getElementById('addBgBlobBtn');
@@ -216,7 +130,15 @@ function init() {
   generateHash();
   bindInputs();
   bindCollapsibleSections();
-  loadPreset('phineo');
+  
+  // Render themes list in sidebar
+  renderThemesGrid();
+  
+  // Generate random layout on launch and apply default Phineo theme colors
+  activeTheme = 'phineo';
+  generateRandomLayout();
+  loadTheme('phineo');
+  
   bindTabs();
   
   // Recalculate frequency scaling when layout sizes change
@@ -290,6 +212,72 @@ function bindInputs() {
   });
   globalMotionSizeInput.addEventListener('change', updatePreviewAndCode);
 
+  // Create Custom Theme form display toggler
+  const showAddThemeBtn = document.getElementById('showAddThemeBtn');
+  const addThemeForm = document.getElementById('addThemeForm');
+  showAddThemeBtn.addEventListener('click', () => {
+    const isHidden = addThemeForm.style.display === 'none' || addThemeForm.style.display === '';
+    addThemeForm.style.display = isHidden ? 'flex' : 'none';
+  });
+
+  // Palette color collector list
+  let newThemePalette = [];
+  const addPaletteColorBtn = document.getElementById('addPaletteColorBtn');
+  const newPaletteColorPicker = document.getElementById('newPaletteColorPicker');
+  const newThemePalettePreview = document.getElementById('newThemePalettePreview');
+
+  addPaletteColorBtn.addEventListener('click', () => {
+    const color = newPaletteColorPicker.value;
+    if (newThemePalette.includes(color)) return;
+    newThemePalette.push(color);
+    
+    // Render color tag bubble inside list preview
+    const tag = document.createElement('div');
+    tag.className = 'new-theme-color-tag';
+    tag.style.backgroundColor = color;
+    tag.title = `Click to remove ${color}`;
+    tag.addEventListener('click', () => {
+      newThemePalette = newThemePalette.filter(c => c !== color);
+      tag.remove();
+    });
+    newThemePalettePreview.appendChild(tag);
+  });
+
+  // Save new theme
+  const saveThemeBtn = document.getElementById('saveThemeBtn');
+  const newThemeNameInput = document.getElementById('newThemeName');
+  const newThemeBg1 = document.getElementById('newThemeBg1');
+  const newThemeBg2 = document.getElementById('newThemeBg2');
+
+  saveThemeBtn.addEventListener('click', () => {
+    const name = newThemeNameInput.value.trim();
+    if (!name) {
+      alert("Please enter a name for the custom theme.");
+      return;
+    }
+    if (newThemePalette.length < 2) {
+      alert("Please add at least 2 colors to the palette.");
+      return;
+    }
+
+    const themeId = 'custom-' + name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+    THEMES[themeId] = {
+      name: name,
+      backdrop: [newThemeBg1.value, newThemeBg2.value],
+      palette: [...newThemePalette]
+    };
+
+    // Re-render grid and apply the new theme
+    renderThemesGrid();
+    loadTheme(themeId);
+
+    // Reset inputs and hide form
+    newThemeNameInput.value = '';
+    newThemePalette = [];
+    newThemePalettePreview.innerHTML = '';
+    addThemeForm.style.display = 'none';
+  });
+
   // Event Delegation for Dynamic Background Blobs Settings Cards
   const bgContainer = document.getElementById('bgBlobsControlsContainer');
   
@@ -316,12 +304,6 @@ function bindInputs() {
       blob.y = parseInt(e.target.value);
       card.querySelector('.blob-y-val').innerText = blob.y + '%';
       updateBgBlobElement(blob);
-    } else if (e.target.classList.contains('blob-color1-input')) {
-      blob.color1 = e.target.value;
-      updateBgBlobElement(blob);
-    } else if (e.target.classList.contains('blob-color2-input')) {
-      blob.color2 = e.target.value;
-      updateBgBlobElement(blob);
     }
   });
 
@@ -344,17 +326,43 @@ function bindInputs() {
         if (elBlob) elBlob.style.display = 'none';
       }
       updatePreviewAndCode();
-    } else if (e.target.type === 'range' || e.target.type === 'color') {
+    } else if (e.target.type === 'range') {
       updatePreviewAndCode();
     }
   });
 
   bgContainer.addEventListener('click', (e) => {
+    // Handle Custom Swatch Click
+    const swatch = e.target.closest('.swatch-btn');
+    if (swatch) {
+      const picker = swatch.parentElement;
+      const card = swatch.closest('.shape-settings-card');
+      if (!card) return;
+      const id = parseInt(card.dataset.id);
+      const blob = bgBlobsData.find(b => b.id === id);
+      if (!blob) return;
+
+      const color = swatch.dataset.color;
+      picker.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
+      swatch.classList.add('active');
+
+      if (picker.classList.contains('blob-color1-picker')) {
+        blob.color1 = color;
+      } else if (picker.classList.contains('blob-color2-picker')) {
+        blob.color2 = color;
+      }
+      updateBgBlobElement(blob);
+      updatePreviewAndCode();
+      return;
+    }
+
+    // Handle Delete button click
     const deleteBtn = e.target.closest('.delete-blob-btn');
-    if (!deleteBtn) return;
-    const card = deleteBtn.closest('.shape-settings-card');
-    const id = parseInt(card.dataset.id);
-    deleteBgBlob(id);
+    if (deleteBtn) {
+      const card = deleteBtn.closest('.shape-settings-card');
+      const id = parseInt(card.dataset.id);
+      deleteBgBlob(id);
+    }
   });
 
   addBgBlobBtn.addEventListener('click', addBgBlob);
@@ -362,7 +370,7 @@ function bindInputs() {
   // Event Delegation for Dynamic Vector Shapes Controls
   const container = document.getElementById('fgShapesControlsContainer');
   
-  // Handle sliding inputs and color pickers
+  // Handle sliding inputs
   container.addEventListener('input', (e) => {
     const card = e.target.closest('.shape-settings-card');
     if (!card) return;
@@ -390,12 +398,6 @@ function bindInputs() {
       shape.y = parseInt(e.target.value);
       card.querySelector('.fg-y-val').innerText = shape.y + '%';
       updateFgShapeElement(shape);
-    } else if (e.target.classList.contains('fg-color1-input')) {
-      shape.color1 = e.target.value;
-      updateFgShapeGradient(shape);
-    } else if (e.target.classList.contains('fg-color2-input')) {
-      shape.color2 = e.target.value;
-      updateFgShapeGradient(shape);
     }
   });
 
@@ -425,34 +427,51 @@ function bindInputs() {
         if (elSvg) elSvg.style.display = 'none';
       }
       updatePreviewAndCode();
-    } else if (e.target.type === 'range' || e.target.type === 'color') {
+    } else if (e.target.type === 'range') {
       updatePreviewAndCode();
     }
   });
 
-  // Handle shape deletion
+  // Handle click events (swatches & deletes)
   container.addEventListener('click', (e) => {
+    // Custom Swatch Select
+    const swatch = e.target.closest('.swatch-btn');
+    if (swatch) {
+      const picker = swatch.parentElement;
+      const card = swatch.closest('.shape-settings-card');
+      if (!card) return;
+      const id = parseInt(card.dataset.id);
+      const shape = fgShapesData.find(s => s.id === id);
+      if (!shape) return;
+
+      const color = swatch.dataset.color;
+      picker.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
+      swatch.classList.add('active');
+
+      if (picker.classList.contains('fg-color1-picker')) {
+        shape.color1 = color;
+      } else if (picker.classList.contains('fg-color2-picker')) {
+        shape.color2 = color;
+      }
+      updateFgShapeGradient(shape);
+      updatePreviewAndCode();
+      return;
+    }
+
+    // Delete Vector Shape
     const deleteBtn = e.target.closest('.delete-shape-btn');
-    if (!deleteBtn) return;
-    const card = deleteBtn.closest('.shape-settings-card');
-    const id = parseInt(card.dataset.id);
-    deleteFgShape(id);
+    if (deleteBtn) {
+      const card = deleteBtn.closest('.shape-settings-card');
+      const id = parseInt(card.dataset.id);
+      deleteFgShape(id);
+    }
   });
 
   // Add Shape button trigger
   addFgShapeBtn.addEventListener('click', addFgShape);
 
-  // Presets
-  presetBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      presetBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      loadPreset(btn.dataset.preset);
-    });
-  });
-
-  // Controls - Layout randomize
-  randomizeBtn.addEventListener('click', randomizePositions);
+  // Layout randomize
+  randomizeBtn.addEventListener('click', generateRandomLayout);
   copyCodeBtn.addEventListener('click', copyCodeToClipboard);
 }
 
@@ -510,6 +529,40 @@ function updateGlobalMotion() {
   updatePreviewAndCode();
 }
 
+function renderThemesGrid() {
+  const grid = document.getElementById('themesGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  Object.keys(THEMES).forEach(themeKey => {
+    const theme = THEMES[themeKey];
+    const btn = document.createElement('button');
+    btn.className = `preset-btn ${themeKey === activeTheme ? 'active' : ''}`;
+    btn.dataset.theme = themeKey;
+    btn.innerText = theme.name;
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#themesGrid .preset-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      loadTheme(themeKey);
+    });
+    grid.appendChild(btn);
+  });
+}
+
+function renderSwatchPicker(activeColor, className) {
+  const colors = THEMES[activeTheme] ? THEMES[activeTheme].palette : ["#ff0055", "#ffffff"];
+  return `
+    <div class="swatch-picker ${className}">
+      ${colors.map(color => `
+        <button class="swatch-btn ${color.toLowerCase() === activeColor.toLowerCase() ? 'active' : ''}" 
+                style="background-color: ${color};" 
+                data-color="${color}" 
+                title="${color}"></button>
+      `).join('')}
+    </div>
+  `;
+}
+
 // Render dynamic background glow settings cards
 function renderBgBlobsControls() {
   const container = document.getElementById('bgBlobsControlsContainer');
@@ -533,15 +586,13 @@ function renderBgBlobsControls() {
         </div>
       </div>
       <div class="card-body ${blob.active ? '' : 'collapsed'}">
-        <div class="color-picker-row">
-          <div class="color-picker-wrapper">
-            <input type="color" class="blob-color1-input" value="${blob.color1}">
-            <span>Color 1</span>
-          </div>
-          <div class="color-picker-wrapper">
-            <input type="color" class="blob-color2-input" value="${blob.color2}">
-            <span>Color 2</span>
-          </div>
+        <div class="control-group">
+          <label>Color 1</label>
+          ${renderSwatchPicker(blob.color1, 'blob-color1-picker')}
+        </div>
+        <div class="control-group">
+          <label>Color 2</label>
+          ${renderSwatchPicker(blob.color2, 'blob-color2-picker')}
         </div>
         <div class="control-group">
           <div class="control-label-val">
@@ -663,15 +714,13 @@ function renderFgShapesControls() {
             <option value="arrow" ${shape.type === 'arrow' ? 'selected' : ''}>Arrow</option>
           </select>
         </div>
-        <div class="color-picker-row">
-          <div class="color-picker-wrapper">
-            <input type="color" class="fg-color1-input" value="${shape.color1}">
-            <span>Color 1</span>
-          </div>
-          <div class="color-picker-wrapper">
-            <input type="color" class="fg-color2-input" value="${shape.color2}">
-            <span>Color 2</span>
-          </div>
+        <div class="control-group">
+          <label>Color 1</label>
+          ${renderSwatchPicker(shape.color1, 'fg-color1-picker')}
+        </div>
+        <div class="control-group">
+          <label>Color 2</label>
+          ${renderSwatchPicker(shape.color2, 'fg-color2-picker')}
         </div>
         <div class="control-group">
           <div class="control-label-val">
@@ -718,6 +767,7 @@ function renderFgShapesControls() {
 function renderFgShapesCanvas() {
   const defs = document.getElementById('fgGradientsDefs');
   const canvasContainer = document.getElementById('fgShapesCanvasContainer');
+  if (!defs || !canvasContainer) return;
   
   defs.innerHTML = '';
   canvasContainer.innerHTML = '';
@@ -846,20 +896,63 @@ function toggleShapeAnimation(shape, index) {
   animEl.style.setProperty('--float-deg', `${motionPreset.deg}deg`);
 }
 
+function generateRandomLayout() {
+  generateHash();
+  const palette = THEMES[activeTheme] ? THEMES[activeTheme].palette : ["#ff0055", "#ffffff"];
+
+  // 1. Generate 2 to 4 random background blobs
+  const numBlobs = Math.floor(Math.random() * 3) + 2; // [2, 3, 4]
+  bgBlobsData = [];
+  for (let i = 0; i < numBlobs; i++) {
+    bgBlobsData.push({
+      id: Date.now() + i,
+      active: true,
+      color1: palette[i % palette.length],
+      color2: palette[(i + 1) % palette.length],
+      size: Math.floor(Math.random() * 900) + 450, // 450px to 1350px
+      blur: Math.floor(Math.random() * 120) + 80,   // 80px to 200px
+      x: Math.floor(Math.random() * 140) - 20,       // -20% to 120%
+      y: Math.floor(Math.random() * 140) - 20        // -20% to 120%
+    });
+  }
+
+  // 2. Generate 2 to 5 random foreground shapes
+  const numShapes = Math.floor(Math.random() * 4) + 2; // [2, 3, 4, 5]
+  fgShapesData = [];
+  const types = Object.keys(PATHS);
+  for (let i = 0; i < numShapes; i++) {
+    fgShapesData.push({
+      id: Date.now() + 100 + i,
+      active: true,
+      type: types[Math.floor(Math.random() * types.length)],
+      color1: palette[(i * 2) % palette.length],
+      color2: palette[(i * 2 + 1) % palette.length],
+      size: Math.floor(Math.random() * 250) + 100,  // 100px to 350px
+      blur: Math.random() < 0.35 ? Math.floor(Math.random() * 15) : 0, // 35% chance of blur
+      rotate: Math.floor(Math.random() * 72) * 5,   // 0 to 360 step 5
+      x: Math.floor(Math.random() * 70) + 15,       // 15% to 85%
+      y: Math.floor(Math.random() * 70) + 15,       // 15% to 85%
+      anim: true
+    });
+  }
+
+  renderBgBlobsControls();
+  renderBgBlobsCanvas();
+  renderFgShapesControls();
+  renderFgShapesCanvas();
+  updatePreviewAndCode();
+}
+
 function addBgBlob() {
-  const randomColors = [
-    { c1: '#ff5e62', c2: '#ff9966' },
-    { c1: '#1a8eff', c2: '#00e5ff' },
-    { c1: '#e0d0b0', c2: '#cbb490' },
-    { c1: '#fe654f', c2: '#ffc759' },
-    { c1: '#b2ff9e', c2: '#78e08f' }
-  ];
-  const choice = randomColors[Math.floor(Math.random() * randomColors.length)];
+  const palette = THEMES[activeTheme] ? THEMES[activeTheme].palette : ["#ff0055", "#ffffff"];
+  const color1 = palette[Math.floor(Math.random() * palette.length)];
+  const color2 = palette[Math.floor(Math.random() * palette.length)];
+  
   const newBlob = {
     id: Date.now(),
     active: true,
-    color1: choice.c1,
-    color2: choice.c2,
+    color1: color1,
+    color2: color2,
     size: 500,
     blur: 120,
     x: Math.floor(Math.random() * 80) + 10,
@@ -884,21 +977,16 @@ function deleteBgBlob(id) {
 function addFgShape() {
   const types = Object.keys(PATHS);
   const randomType = types[Math.floor(Math.random() * types.length)];
-  const randomColors = [
-    { c1: '#e0533c', c2: '#f39c12' },
-    { c1: '#1b5e94', c2: '#4fa8c1' },
-    { c1: '#9b59b6', c2: '#8e44ad' },
-    { c1: '#2ecc71', c2: '#27ae60' },
-    { c1: '#ff0055', c2: '#ff9900' }
-  ];
-  const choice = randomColors[Math.floor(Math.random() * randomColors.length)];
+  const palette = THEMES[activeTheme] ? THEMES[activeTheme].palette : ["#ff0055", "#ffffff"];
+  const color1 = palette[Math.floor(Math.random() * palette.length)];
+  const color2 = palette[Math.floor(Math.random() * palette.length)];
   
   const newShape = {
     id: Date.now(),
     active: true,
     type: randomType,
-    color1: choice.c1,
-    color2: choice.c2,
+    color1: color1,
+    color2: color2,
     size: 150,
     blur: 0,
     rotate: Math.floor(Math.random() * 8) * 45,
@@ -922,113 +1010,35 @@ function deleteFgShape(id) {
   updatePreviewAndCode();
 }
 
-function randomizePositions() {
+function loadTheme(themeName) {
   generateHash();
-  
-  // Randomize Background Blobs positions dynamically
-  bgBlobsData.forEach(blob => {
-    if (blob.active) {
-      blob.x = Math.floor(Math.random() * 80) + 10;
-      blob.y = Math.floor(Math.random() * 80) + 10;
-      const card = document.querySelector(`.shape-settings-card[data-id="${blob.id}"]`);
-      if (card) {
-        card.querySelector('.blob-x-slider').value = blob.x;
-        card.querySelector('.blob-x-val').innerText = blob.x + '%';
-        card.querySelector('.blob-y-slider').value = blob.y;
-        card.querySelector('.blob-y-val').innerText = blob.y + '%';
-      }
-      updateBgBlobElement(blob);
-    }
-  });
+  const theme = THEMES[themeName];
+  if (!theme) return;
 
-  // Randomize Layer 2 Foreground Shapes positions dynamically
-  fgShapesData.forEach(shape => {
-    if (shape.active) {
-      shape.x = Math.floor(Math.random() * 60) + 20;
-      shape.y = Math.floor(Math.random() * 60) + 20;
-      
-      const card = document.querySelector(`.shape-settings-card[data-id="${shape.id}"]`);
-      if (card) {
-        card.querySelector('.fg-x-slider').value = shape.x;
-        card.querySelector('.fg-x-val').innerText = shape.x + '%';
-        card.querySelector('.fg-y-slider').value = shape.y;
-        card.querySelector('.fg-y-val').innerText = shape.y + '%';
-      }
-      updateFgShapeElement(shape);
-    }
-  });
-}
+  activeTheme = themeName;
 
-function loadPreset(presetName) {
-  generateHash();
-  const preset = PRESETS[presetName];
-  if (!preset) return;
-
-  // Global settings
-  noiseTypeInput.value = preset.noiseType;
-  feTurbulence.setAttribute('type', preset.noiseType);
-  if (svgFeTurbulence) {
-    svgFeTurbulence.setAttribute('type', preset.noiseType);
-  }
-
-  baseFrequencyInput.value = preset.baseFrequency;
-  updateNoiseFrequency();
-
-  numOctavesInput.value = preset.numOctaves;
-  numOctavesVal.innerText = preset.numOctaves;
-  feTurbulence.setAttribute('numOctaves', preset.numOctaves);
-  if (svgFeTurbulence) {
-    svgFeTurbulence.setAttribute('numOctaves', preset.numOctaves);
-  }
-
-  noiseOpacityInput.value = preset.noiseOpacity;
-  noiseOpacityVal.innerText = Math.round(preset.noiseOpacity * 100) + '%';
-  document.documentElement.style.setProperty('--noise-opacity', preset.noiseOpacity);
-
-  blendModeInput.value = preset.blendMode;
-  document.documentElement.style.setProperty('--noise-blend-mode', preset.blendMode);
-
-  bgColor1Input.value = preset.bgColor1;
-  bgColor2Input.value = preset.bgColor2;
-  bgAngleInput.value = preset.bgAngle;
+  // Apply backdrop theme gradient
+  bgColor1Input.value = theme.backdrop[0];
+  bgColor2Input.value = theme.backdrop[1];
   updateBackground();
 
-  // Reset global motion settings back to defaults
-  globalMotionActiveInput.checked = false;
-  globalMotionSpeedInput.value = 1.0;
-  globalMotionSizeInput.value = 100;
-  updateGlobalMotion();
+  // Recolor current active layout elements with theme palette colors
+  const palette = theme.palette;
+  if (palette.length > 0) {
+    bgBlobsData.forEach((blob, index) => {
+      blob.color1 = palette[index % palette.length];
+      blob.color2 = palette[(index + 1) % palette.length];
+    });
 
-  // Map dynamic background glows from preset
-  bgBlobsData = preset.bgBlobs.map((b, index) => ({
-    id: index + 1,
-    active: b.active,
-    color1: b.color1,
-    color2: b.color2,
-    size: b.size,
-    blur: b.blur,
-    x: b.x,
-    y: b.y
-  }));
+    fgShapesData.forEach((shape, index) => {
+      shape.color1 = palette[(index * 2) % palette.length];
+      shape.color2 = palette[(index * 2 + 1) % palette.length];
+    });
+  }
 
+  // Re-render pickers showing only active theme colors
   renderBgBlobsControls();
   renderBgBlobsCanvas();
-
-  // Load Layer 2: Foreground Shapes
-  fgShapesData = preset.fgShapes.map((s, index) => ({
-    id: index + 1,
-    active: s.active,
-    type: s.type,
-    color1: s.color1,
-    color2: s.color2,
-    size: s.size,
-    blur: s.blur,
-    rotate: s.rotate || 0,
-    x: s.x,
-    y: s.y,
-    anim: s.anim
-  }));
-
   renderFgShapesControls();
   renderFgShapesCanvas();
   updatePreviewAndCode();
@@ -1348,12 +1358,7 @@ ${keyframesCSS}
         baseFrequency="${baseFreq}" 
         numOctaves="${octaves}" 
         stitchTiles="stitch" />
-      <feColorMatrix 
-        type="matrix" 
-        values="1 0 0 0 0
-                1 0 0 0 0
-                1 0 0 0 0
-                0 0 0 1 0" />
+      <feColorMatrix type="matrix" values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0" />
     </filter>
 
     <!-- High-Contrast Monochrome Noise Filter (SVG Shapes viewBox) -->
@@ -1363,12 +1368,7 @@ ${keyframesCSS}
         baseFrequency="${svgFreqVal}" 
         numOctaves="${octaves}" 
         stitchTiles="stitch" />
-      <feColorMatrix 
-        type="matrix" 
-        values="1 0 0 0 0
-                1 0 0 0 0
-                1 0 0 0 0
-                0 0 0 1 0" />
+      <feColorMatrix type="matrix" values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0" />
     </filter>
 
     <!-- Transparency Grain Mask for Shapes -->
